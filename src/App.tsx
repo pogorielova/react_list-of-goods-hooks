@@ -35,7 +35,7 @@ enum SortType {
 
 function getPreparedGoods(
   goods: GoodType[],
-  { sortField }: { sortField: string },
+  { sortField }: { sortField: SortType },
 ) {
   const preparedGoods = [...goods];
 
