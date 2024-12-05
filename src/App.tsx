@@ -61,18 +61,18 @@ function getPreparedGoods(
 
 export const App: React.FC = () => {
   const [sortField, setSortField] = useState(SortType.Default);
-  const [isReversed, setReversed] = useState(false);
+  const [isReversed, setIsReversed] = useState(false);
 
   const visibleGoods = getPreparedGoods(goodsWithIds, {
     sortField,
     isReversed,
   });
 
-  const isResetVisible = sortField || isReversed ? true : false;
+  const isResetButtonVisible = sortField || isReversed;
 
   const handleReset = () => {
     setSortField(SortType.Default);
-    setReversed(false);
+    setIsReversed(false);
   };
 
   return (
@@ -103,7 +103,7 @@ export const App: React.FC = () => {
         </button>
 
         <button
-          onClick={() => setReversed(prev => !prev)}
+          onClick={() => setIsReversed(prev => !prev)}
           type="button"
           className={cn('button', 'is-warning', {
             'is-light': !isReversed,
@@ -112,7 +112,7 @@ export const App: React.FC = () => {
           Reverse
         </button>
 
-        {isResetVisible && (
+        {isResetButtonVisible && (
           <button
             onClick={handleReset}
             type="button"
@@ -124,9 +124,9 @@ export const App: React.FC = () => {
       </div>
 
       <ul>
-        {visibleGoods.map(good => {
-          return <Good key={good.id} good={good} />;
-        })}
+        {visibleGoods.map(good => (
+          <Good key={good.id} good={good} />
+        ))}
       </ul>
     </div>
   );
